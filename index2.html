@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEO ORBITING SATELLITE</title>
+    <link rel="stylesheet" href="styel2.css">
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+</head>
+<!-- 35,786 KM(GEO)
+2,000-35,786 km(MEO) -->
+<body>
+    <div id="main">
+        <div id="nav">
+            <h2>MEO Satellite</h2>
+            <i class="ri-menu-2-line"></i>
+        </div>
+        <div id="full">
+            <h4>Satellite Calculator</h4>
+            <label for="altitude">Altitude above Earth's Surface (km):</label>
+            <input type="number" id="altitude" placeholder="Enter altitude (2000 - 35786 km)">
+            <button id="calculate-btn">Calculate</button>
+            <div id="result">
+                <p id="velocity-result"></p>
+                <p id="time-result"></p>
+            </div>
+            <hr>
+            <h5 id="meo-info-title" class="collapsible">What is MEO (Medium Earth Orbit)?</h5>
+<div id="meo-info">
+    <p>MEO (Medium Earth Orbit) refers to an orbit around Earth with an altitude ranging from 2,000 km to approximately 35,786 km. Satellites in MEO have moderate orbital periods and are commonly used for applications like:</p>
+    <ul>
+        <li>Navigation systems (e.g., GPS, Galileo, GLONASS).</li>
+        <li>Satellite-based augmentation systems for aviation and maritime.</li>
+        <li>Communication satellites for regional coverage.</li>
+    </ul>
+    <p>Advantages of MEO:</p>
+    <ul>
+        <li>Wider coverage area compared to Low Earth Orbit satellites.</li>
+        <li>Lower latency than Geostationary Earth Orbit (GEO) satellites.</li>
+        <li>Ideal for navigation systems with global or regional coverage.</li>
+    </ul>
+    <p>Challenges of MEO:</p>
+    <ul>
+        <li>Higher launch and maintenance costs than LEO satellites.</li>
+        <li>Requires robust systems to handle radiation exposure in this orbit.</li>
+    </ul>
+</div>
+
+            <i class="ri-close-line"></i>
+        </div>
+        
+        
+        
+        
+        
+       </div>
+    <div class="video-div">
+        <div id="earth-container">
+            <svg width="16" height="166" viewBox="0 0 16 166" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.73768 0.289007C8.34488 -0.0992258 7.71172 -0.0955217 7.32349 0.29728L0.996867 6.69836C0.608634 7.09116 0.612338 7.72432 1.00514 8.11255C1.39794 8.50078 2.0311 8.49708 2.41933 8.10428L8.04299 2.41443L13.7328 8.03809C14.1256 8.42632 14.7588 8.42262 15.147 8.02982C15.5353 7.63702 15.5316 7.00386 15.1388 6.61563L8.73768 0.289007ZM9.99998 165.994L9.0347 0.994388L7.03474 1.00609L8.00002 166.006L9.99998 165.994Z" fill="#626668"/>
+                </svg>
+                <h1>2,000-35,786 km(MEO)</h1>
+            <model-viewer id="EARTH" src="earth.glb" autoplay camera-controls auto-rotate disable-zoom></model-viewer>
+            <div id="orbit-container">
+                <model-viewer id="Satellite" src="simple_satellite_low_poly_free.glb" autoplay camera-controls disable-zoom></model-viewer>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>  
+</body>
+</html>

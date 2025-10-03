@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satellite Communication 🛰</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 25%, #16213e 50%, #0f0f23 75%, #000000 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Animated stars background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Header section */
+        .header {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 100, 255, 0.1) 0%, transparent 70%);
+            z-index: 2;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="white" opacity="0.5"/></svg>') repeat;
+            background-size: 100px 100px;
+            opacity: 0.3;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-100px); }
+        }
+
+        .header h1 {
+            font-size: 4rem;
+            text-align: center;
+            background: linear-gradient(45deg, #00d4ff, #0099cc, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 30px rgba(0, 212, 255, 0.5); }
+            to { text-shadow: 0 0 40px rgba(0, 212, 255, 0.8), 0 0 60px rgba(0, 212, 255, 0.6); }
+        }
+
+        /* Section styling */
+        .section {
+            position: relative;
+            padding: 80px 0;
+            z-index: 2;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .section-content:nth-child(even) {
+            direction: rtl;
+        }
+
+        .section-content:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .text-content {
+            background: linear-gradient(135deg, rgba(0, 100, 255, 0.1), rgba(0, 150, 255, 0.05));
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .text-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #00d4ff;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .text-content ul {
+            list-style: none;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .text-content li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .text-content li::before {
+            content: '🛰️';
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .visual-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+            background: radial-gradient(circle, rgba(0, 100, 255, 0.1) 0%, transparent 70%);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .visual-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 49%, rgba(0, 212, 255, 0.1) 50%, transparent 51%);
+            background-size: 20px 20px;
+            animation: grid-move 10s infinite linear;
+        }
+
+        @keyframes grid-move {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(20px) translateY(20px); }
+        }
+
+        .model-viewer-container {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            z-index: 1;
+        }
+
+        model-viewer {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            --poster-color: transparent;
+        }
+
+        .model-placeholder {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            animation: rotate 10s infinite linear;
+            z-index: 1;
+            position: relative;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Orbit types section */
+        .orbit-types {
+            background: linear-gradient(135deg, rgba(0, 50, 100, 0.1), rgba(0, 30, 60, 0.1));
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .orbit-types h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #00d4ff;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .orbit-types h3 {
+            font-size: 1.5rem;
+            margin-bottom: 50px;
+            color: #ffffff;
+            opacity: 0.8;
+        }
+
+        .orbit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .orbit-card {
+            background: linear-gradient(135deg, rgba(0, 100, 255, 0.1), rgba(0, 150, 255, 0.05));
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .orbit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .tv-frame {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .tv-frame img {
+            width: 100%;
+            height: auto;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 10px 30px rgba(0, 212, 255, 0.3));
+        }
+
+        .tv-frame video {
+            position: absolute;
+            top: 12%;
+            left: 12%;
+            width: 76%;
+            height: 68%;
+            object-fit: cover;
+            z-index: 1;
+            border-radius: 10px;
+        }
+
+        .model-viewer-container {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            z-index: 1;
+            background: radial-gradient(circle, rgba(0, 100, 255, 0.05) 0%, transparent 70%);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 
+                0 0 50px rgba(0, 212, 255, 0.2),
+                inset 0 0 50px rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        model-viewer {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            --poster-color: transparent;
+            --progress-bar-color: #00d4ff;
+            --progress-mask: rgba(0, 212, 255, 0.2);
+            border-radius: 15px;
+        }
+
+        model-viewer::part(default-progress-bar) {
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            border-radius: 10px;
+            height: 4px;
+        }
+
+        /* Holographic effect for models */
+        .model-viewer-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 49%, rgba(0, 212, 255, 0.03) 50%, transparent 51%);
+            background-size: 30px 30px;
+            animation: hologram-scan 8s infinite linear;
+            pointer-events: none;
+            z-index: 2;
+            border-radius: 20px;
+        }
+
+        @keyframes hologram-scan {
+            0% { transform: translateX(-30px) translateY(-30px); }
+            100% { transform: translateX(30px) translateY(30px); }
+        }
+
+        /* Floating particles around models */
+        .model-viewer-container::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: calc(100% + 20px);
+            height: calc(100% + 20px);
+            background: 
+                radial-gradient(2px 2px at 20px 30px, rgba(0, 212, 255, 0.3), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(0, 212, 255, 0.2), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(0, 212, 255, 0.4), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(0, 212, 255, 0.2), transparent),
+                radial-gradient(2px 2px at 160px 30px, rgba(0, 212, 255, 0.3), transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: particle-float 15s infinite linear;
+            pointer-events: none;
+            z-index: 0;
+            border-radius: 25px;
+        }
+
+        @keyframes particle-float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-100px); }
+        }
+
+        .tv-frame {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .tv-frame img {
+            width: 100%;
+            height: auto;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 10px 30px rgba(0, 212, 255, 0.3));
+        }
+
+        .tv-frame video {
+            position: absolute;
+            top: 12%;
+            left: 12%;
+            width: 76%;
+            height: 68%;
+            object-fit: cover;
+            z-index: 1;
+            border-radius: 10px;
+        }
+
+        .orbit-visual {
+            width: 100%;
+            height: 200px;
+            background: radial-gradient(circle, rgba(0, 100, 255, 0.2) 0%, transparent 70%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .orbit-visual video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .orbit-visual::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 120%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.5), transparent);
+            transform: translate(-50%, -50%);
+            animation: scan 3s infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translate(-50%, -50%) scaleX(0); }
+            50% { transform: translate(-50%, -50%) scaleX(1); }
+            100% { transform: translate(-50%, -50%) scaleX(0); }
+        }
+
+        .custom-btn {
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .custom-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.5);
+        }
+
+        .custom-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .section-content:nth-child(even) {
+                direction: ltr;
+            }
+
+            .text-content h2 {
+                font-size: 2rem;
+            }
+
+            .text-content {
+                padding: 20px;
+            }
+
+            .orbit-types h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Additional space effects */
+        .nebula {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(50px);
+            animation: nebula-drift 30s infinite ease-in-out;
+        }
+
+        @keyframes nebula-drift {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(100px, -50px); }
+            50% { transform: translate(-50px, 100px); }
+            75% { transform: translate(-100px, -100px); }
+        }
+
+        .read-more-section {
+            text-align: center;
+            padding: 60px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated stars -->
+    <div class="stars" id="stars"></div>
+
+    <!-- Nebula effects -->
+    <div class="nebula" style="top: 10%; left: 10%;"></div>
+    <div class="nebula" style="top: 60%; right: 10%;"></div>
+    <div class="nebula" style="bottom: 20%; left: 20%;"></div>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>Satellite Communication 🛰️</h1>
+    </div>
+
+    <!-- What is Satellite Communication -->
+    <div class="section">
+        <div class="container">
+            <div class="section-content">
+                <div class="text-content">
+                    <h2>What is Satellite Communication?</h2>
+                    <ul>
+                        <li>Satellite communication transmits and receives information using satellites orbiting the Earth</li>
+                        <li>It enables long-distance wireless communication for television, internet, and phone services</li>
+                        <li>It connects ground stations by relaying signals, overcoming geographical barriers</li>
+                        <li>Satellite communication is vital for communication networks, navigation, and space exploration</li>
+                    </ul>
+                </div>
+                <div class="visual-content">
+                    <div class="model-viewer-container">
+                        <model-viewer id="EARTH" src="contemporary_earth.glb" autoplay camera-controls auto-rotate disable-zoom></model-viewer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Satellite Launching Process -->
+    <div class="section">
+        <div class="container">
+            <div class="section-content">
+                <div class="visual-content">
+                    <div class="tv-frame">
+                        <img src="959-9598228_tv-frame-png-transparent-tv-png.png" alt="TV Frame" />
+                        <video autoplay loop muted src="how-a-satellite-is-launched-into-space-720-publer.io.mp4"></video>
+                    </div>
+                </div>
+                <div class="text-content">
+                    <h2>Satellite Launching Process</h2>
+                    <ul>
+                        <li>Rockets launch satellites into space</li>
+                        <li>They ascend vertically at first</li>
+                        <li>Boosters provide thrust initially</li>
+                        <li>Used boosters are dropped to reduce weight</li>
+                        <li>Lighter rockets move faster</li>
+                        <li>At the correct altitude, satellites are released into orbit</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How Satellites Work -->
+    <div class="section">
+        <div class="container">
+            <div class="section-content">
+                <div class="text-content">
+                    <h2>How Satellites Work</h2>
+                    <ul>
+                        <li>Satellite communication consists of three main components</li>
+                        <li>Uplink: transmitting signals from the ground to the satellite</li>
+                        <li>Satellite transponder: amplifying and converting signals</li>
+                        <li>Downlink: transmitting signals from the satellite to the ground</li>
+                    </ul>
+                </div>
+                <div class="visual-content">
+                    <div class="model-viewer-container">
+                        <model-viewer id="SATELLITE" src="simple_satellite_low_poly_free.glb" autoplay camera-controls auto-rotate disable-zoom></model-viewer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Read More Button -->
+    <div class="read-more-section">
+        <button class="custom-btn">
+            <span>Read More</span>
+        </button>
+    </div>
+
+    <!-- Types of Satellite Orbits -->
+    <div class="orbit-types">
+        <div class="container">
+            <h2>Types of Satellite Orbits</h2>
+            <h3>(LEO, MEO, GEO...)</h3>
+            
+            <div class="orbit-grid">
+                <div class="orbit-card">
+                    <div class="orbit-visual">
+                        <video autoplay loop muted src="1.mp4"></video>
+                    </div>
+                    <h3>Low Earth Orbit (LEO)</h3>
+                    <p>160-2000 km altitude</p>
+                    <button class="custom-btn">
+                        <span>Read More</span>
+                    </button>
+                </div>
+                
+                <div class="orbit-card">
+                    <div class="orbit-visual">
+                        <video autoplay loop muted src="2.mp4"></video>
+                    </div>
+                    <h3>Medium Earth Orbit (MEO)</h3>
+                    <p>2000-35,786 km altitude</p>
+                    <button class="custom-btn">
+                        <span>Read More</span>
+                    </button>
+                </div>
+                
+                <div class="orbit-card">
+                    <div class="orbit-visual">
+                        <video autoplay loop muted src="3.mp4"></video>
+                    </div>
+                    <h3>Geostationary Orbit (GEO)</h3>
+                    <p>35,786 km altitude</p>
+                    <button class="custom-btn">
+                        <span>Read More</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+    <script>
+        // Create animated stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numberOfStars = 100;
+
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                star.style.animationDuration = (Math.random() * 3 + 1) + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Initialize stars
+        createStars();
+
+        // Add scroll animations
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.header::before');
+            const speed = scrolled * 0.5;
+            
+            // Parallax effect for header
+            document.querySelector('.header').style.transform = `translateY(${speed}px)`;
+        });
+
+        // Add hover effects to cards
+        document.querySelectorAll('.orbit-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add click ripple effect to buttons
+        document.querySelectorAll('.custom-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.3)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s ease-out';
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

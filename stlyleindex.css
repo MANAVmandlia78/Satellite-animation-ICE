@@ -1,0 +1,114 @@
+@import url("https://fonts.googleapis.com/css?family=PT+Sans+Narrow");
+
+body {
+    font: 14px/1.5 "PT Sans Narrow", sans-serif;
+    background: #080e24 url(http://neography.com/experiment/circles/solarsystem/bg.jpg) no-repeat;
+    background-size: cover;
+    color: #626668;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+#main {
+    height: 100%;
+    width: 100%;
+}
+
+.models {
+    margin-top: 15vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#ground1 {
+    
+    position: relative;
+    right: 23vh;
+    top: 25vh;
+    width: 50vh;
+    height: 50vh;
+}
+
+#ground2 {
+    position: relative;
+    left: -50vh;
+    top: 25vh;
+    position: relative;
+    width: 50vh;
+    height: 50vh;
+}
+
+
+
+#satellite {
+    top: -30vh;
+    position: relative;
+    left: -39vh;
+    width: 40vh;
+    height: 40vh;
+}
+
+/* Styling for Explanation Section */
+.satellite-description {
+    position: absolute;
+    top: 0;
+    right: 0vw;
+    width: 30vw;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+    max-height: 100vh;
+}
+}
+
+.satellite-description h3 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.satellite-description p, .satellite-description ul {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.satellite-description ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+.satellite-description li {
+    margin-bottom: 15px;
+}
+
+.satellite-description strong {
+    color: #ff6347;
+}
+
+.satellite-description em {
+    font-style: italic;
+}
+
+.satellite-description a {
+    color: #ff6347;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.satellite-description a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .satellite-description {
+        top: 20vh;
+        left: 5vw;
+        width: 90vw;
+        max-height: 50vh;
+    }
+}
